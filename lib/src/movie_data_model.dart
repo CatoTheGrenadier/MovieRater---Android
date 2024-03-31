@@ -1,5 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'dart:convert';
+import 'package:path_provider/path_provider.dart';
+
+String api_key = "5763f56108dc124de419d28d03df1748";
 
 class MovieResults{
   List<SingleMovie> movies = [];
@@ -7,19 +11,29 @@ class MovieResults{
 
   MovieResults({
     required this.movies,
-  }){
-    init();
-  }
+  });
 
-  void init(){
+  Future<MovieResults> init() async {
+    MovieResults newMovie = MovieResults(movies: []);
     if (!cached){
+      cached = true;
       String jsonString = await fetchMovieResultJson();
-      
+      if (jsonString != Null){
+        writeJsonToFile(jsonString, "assets\\JsonFiles\\movieDataCache.json");
+        newMovie = MovieResults.fromJson(jsonString);
+      }
+    } else {
+      String jsonString = await readJsonFromFile("assets\\JsonFiles\\movieDataCache.json");
+      if (jsonString != Null){
+        newMovie = MovieResults.fromJson(jsonString);
+      }
     }
+    return newMovie;
   }
 
-  factory MovieResults.fromJson(Map<String,dynamic> json){
-    var results = json['results'] as List;
+  factory MovieResults.fromJson(String jsonString){
+    Map<String,dynamic> jsonData = json.decode(jsonString);
+    var results = jsonData['results'] as List;
     List<SingleMovie> movies = results.map((movieJson) => SingleMovie.fromJson(movieJson)).toList();
     return MovieResults(
       movies: movies,
@@ -27,7 +41,7 @@ class MovieResults{
   }
 
   Future<String> fetchMovieResultJson() async {
-    final response = await http.get(Uri.parse(''));
+    final response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/popular?api_key=$api_key"));
     if (response.statusCode == 200){
       return response.body;
     } else {
@@ -35,8 +49,10 @@ class MovieResults{
     }
   }
 
-  void writeJsonToFile(String jsonData, String filePath) async {
-    File file = File(jsonData);
+  void writeJsonToFile(String jsonData, String fileName) async {
+    Directory appDocumentsDir = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocumentsDir.path}/$fileName';
+    File file = File(filePath);
     await file.writeAsString(jsonData);
   }
 
@@ -80,17 +96,17 @@ class SingleMovie{
 
   factory SingleMovie.fromJson(Map<String,dynamic> json){
     return SingleMovie(
-      id: json['id'],
-      posterPath: json['posterPath'],
-      title: json["title"],
-      voteAverage: json["voteAverage"],
-      voteCount: json["voteCount"],
-      releaseDate: json["releaseDate"],
-      backdropPath: json["backdropPath"],
-      overview: json["overview"],
-      originalTitle: json["originalTitle"],
-      popularity: json["popularity"],
-      genresID: json["genresID"],
+      id: json["id"] ?? 0,
+      posterPath: json["poster_path"] ?? "",
+      title: json["title"] ?? "",
+      voteAverage: json["vote_average"] ?? 0.0,
+      voteCount: json["vote_count"] ?? 0,
+      releaseDate: json["release_date"] ?? "",
+      backdropPath: json["backdrop_path"] ?? "",
+      overview: json["overview"] ?? "",
+      originalTitle: json["original_title"] ?? "",
+      popularity: json["popularity"] ?? 0.0,
+      genresID: (json['genre_ids'] as List<dynamic>).cast<int>(),
     );
   }
 }
