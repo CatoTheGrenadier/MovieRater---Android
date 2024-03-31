@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "MovieList.dart";
+import "movie_list.dart";
 import 'package:movielist/src/movie_data_model.dart';
 
 class MasterView extends StatefulWidget {
@@ -9,16 +9,30 @@ class MasterView extends StatefulWidget {
 
 class MasterViewState extends State<MasterView>{
   MovieResults movieList = MovieResults(movies: []);
+  GenresMap genresMap = GenresMap();
+  DeletedMovies deletedMovies = DeletedMovies(deleted: []);
   
   @override
   void initState(){
     super.initState();
     initializeMovieList();
+    initializeGenresMap();
+    initializeDeleted();
   }
 
   Future<void> initializeMovieList() async {
     MovieResults updatedMovieList = await movieList.init();
     setState(() {movieList = updatedMovieList;});
+  }
+
+  Future<void> initializeGenresMap() async {
+    GenresMap newGenresMap = await genresMap.init();
+    setState(() {genresMap = newGenresMap;});
+  }
+
+  Future<void> initializeDeleted() async {
+    DeletedMovies newDeletedMovies = await deletedMovies.init();
+    setState(() {deletedMovies = newDeletedMovies;});
   }
   
   @override
@@ -28,14 +42,13 @@ class MasterViewState extends State<MasterView>{
         backgroundColor: Colors.yellow,
         body: Center(
           child: ListView(
-            shrinkWrap: true,
             children: [
               Column(
                 children: [
                   Text("Popular Movies"),
                 ],
               ),
-              Container(child: MovieListView(movieList: movieList),)
+              MovieListView(movieList: movieList,genresMap:genresMap, deletedMovies: deletedMovies),
             ],
           )
         )
