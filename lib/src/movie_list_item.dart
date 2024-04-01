@@ -41,6 +41,7 @@ class MovieListItemState extends State<MovieListItem>{
   
   @override
   Widget build(BuildContext context) {
+    curThemeMode = widget.curThemeMode;
     if (picsLists.posters.isEmpty) {
       return ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),

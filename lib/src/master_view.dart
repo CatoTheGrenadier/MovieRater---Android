@@ -14,7 +14,7 @@ class MasterViewState extends State<MasterView>{
   DeletedMovies deletedMovies = DeletedMovies(deleted: []);
   String searchValue = '';
 
-  ThemeMode curThemeMode = ThemeMode.system; 
+  ThemeMode curThemeMode = ThemeMode.light; 
   void switchTheme(ThemeMode themeMode) { 
     setState(() { 
       curThemeMode = themeMode; 

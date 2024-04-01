@@ -27,18 +27,13 @@ class MovieDetailState extends State<MovieDetailView>{
   late GenresMap genresMap;
   late ThemeMode curThemeMode;
 
-  void switchTheme(ThemeMode themeMode) { 
-    setState(() { 
-      curThemeMode = themeMode; 
-    }); 
-  } 
-
   @override
   Widget build(BuildContext context){
     picsLists = widget.picsLists;
     movie = widget.movie;
     genresMap = widget.genresMap;
     curThemeMode = widget.curThemeMode;
+    print(curThemeMode);
     return MaterialApp(
       theme: ThemeData(),
       darkTheme: ThemeData.dark(),
@@ -57,7 +52,7 @@ class MovieDetailState extends State<MovieDetailView>{
                       movie.title,
                       style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 24, 
+                      fontSize: 30, 
                     ),
                     )
                   ),
@@ -198,29 +193,6 @@ class MovieDetailState extends State<MovieDetailView>{
               ),
             ],
           )
-        ),
-        bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0), // Adjust the padding as needed
-              child: ElevatedButton(
-                onPressed: () {
-                  switchTheme(ThemeMode.light);
-                },
-                child: Text("Light Theme"),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0), // Adjust the padding as needed
-              child: ElevatedButton(
-                onPressed: () {
-                  switchTheme(ThemeMode.dark);
-                },
-                child: Text("Dark Theme"),
-              ),
-            ),
-          ],
         ),
       )
     );
