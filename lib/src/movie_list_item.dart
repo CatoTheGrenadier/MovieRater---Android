@@ -6,10 +6,12 @@ import 'package:movielist/src/movie_details.dart';
 class MovieListItem extends StatefulWidget {
   final MovieItem movie;
   final GenresMap genresMap;
+  final ThemeMode curThemeMode;
 
   MovieListItem({
     required this.movie,
     required this.genresMap,
+    required this.curThemeMode,
   });
 
   @override
@@ -19,6 +21,7 @@ class MovieListItem extends StatefulWidget {
 class MovieListItemState extends State<MovieListItem>{
   late MovieItem movie;
   late GenresMap genresMap;
+  late ThemeMode curThemeMode;
 
   MoviePics picsLists = MoviePics(backdrops: [],posters: [],logos:[]);
   
@@ -27,6 +30,7 @@ class MovieListItemState extends State<MovieListItem>{
     super.initState();
     movie = widget.movie;
     genresMap = widget.genresMap;
+    curThemeMode = widget.curThemeMode;
     initializePicsLists();
   }
 
@@ -53,11 +57,17 @@ class MovieListItemState extends State<MovieListItem>{
         onTap:(){
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MovieDetailView(picsLists: picsLists,movie:movie, genresMap: genresMap)),
+              MaterialPageRoute(builder: (context) => MovieDetailView(picsLists: picsLists,movie:movie, genresMap: genresMap, curThemeMode: curThemeMode)),
             );
         },
         contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        title: Text(movie.title),
+        title: Text(
+          movie.title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16, 
+          ),
+        ),
         leading: Image.network(
           'https://image.tmdb.org/t/p/w500${picsLists.posters[0].file_path}',
           width: 125, 

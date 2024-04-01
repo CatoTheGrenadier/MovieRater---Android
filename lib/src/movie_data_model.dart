@@ -250,12 +250,11 @@ class DeletedMovies{
   }
 
   void encodeAndWriteDeletedToFile() async {
-    String fileName = "assets/JsonFiles/deleted.json";
+    String fileName = "assets\\JsonFiles\\deleted.json";
     String jsonData = jsonEncode(this);
     Directory appDocumentsDir = await getApplicationDocumentsDirectory();
     String filePath = '${appDocumentsDir.path}/$fileName';
     File file = File(filePath);
-    print(filePath);
     await file.writeAsString(jsonData);
   }
 
@@ -263,8 +262,6 @@ class DeletedMovies{
     try {
       String filePath = "assets/JsonFiles/deleted.json";
       String contents = await rootBundle.loadString(filePath);
-      print(contents);
-      print(filePath);
       return contents;
     } catch (error) {
       throw Exception('Failed to read JSON from file: $error');
