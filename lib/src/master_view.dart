@@ -54,7 +54,7 @@ class MasterViewState extends State<MasterView>{
       home: Scaffold(
         appBar: EasySearchBar(
           title: const Text('Example'),
-          onSearch: (value) => setState(() {searchValue = value;print(value);print(searchValue);print(1);}),
+          onSearch: (value) => setState(() {searchValue = value;}),
         ),
         body: Center(
           child: ListView(

@@ -22,6 +22,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.3
 
   flutter_lints: ^3.0.0
 
@@ -38,4 +39,9 @@ flutter:
     - assets/JsonFiles/movieDataCache.json
     - lib/src/
 
+flutter_icons:
+    android: "launcher_icon"
+    ios: true
+    image_path: "assets/images/appIcon.png"
+    min_sdk_android: 21 # android min sdk min:16, default 21
 
