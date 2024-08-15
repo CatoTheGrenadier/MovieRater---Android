@@ -1,30 +1,9 @@
-# movielist
+# Movie List App
 
-A new Flutter project.
+•	Developed a user-friendly Android & iOS mobile application for browsing popular movies using Flutter and Material UI.
+•	Integrated The Movie Database (TMDB) API to fetch movie data from online sources. 
+•	Implemented the MVVM design pattern to ensure a well-structured and maintainable codebase. 
+•	Implemented user authentication mechanisms through Firebase, guaranteeing secure access to data.
+•	Enabled seamless user experience by implementing JSON encoding and decoding for data persistence, allowing users to seamlessly resume their browsing session. 
 
-## Getting Started
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
-
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Assets
-
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
-
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
-
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
